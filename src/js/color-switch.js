@@ -1,5 +1,11 @@
 import colors from './color.js';
 
+const refs = {
+  startBtn: document.querySelector('button[data-action="start"]'),
+  stopBtn: document.querySelector('button[data-action="stop"]'),
+  body: document.querySelector('body'),
+};
+
 const timer = {
   intervalId: null,
   start() {
@@ -10,18 +16,12 @@ const timer = {
     this.intervalId = setInterval(() => {
       return randomColor();
     }, 1000);
-    refs.startBtn.removeAttribute('disabled');
   },
   stop() {
     clearInterval(this.intervalId);
+    refs.startBtn.removeAttribute('disabled');
     this.intervalId = null;
   },
-};
-
-const refs = {
-  startBtn: document.querySelector('button[data-action="start"]'),
-  stopBtn: document.querySelector('button[data-action="stop"]'),
-  body: document.querySelector('body'),
 };
 
 refs.startBtn.addEventListener('click', timer.start.bind(timer));
@@ -38,9 +38,4 @@ function randomColor() {
 
 function colorStyle(color) {
   refs.body.setAttribute('style', `background-color:${color}`);
-}
-
-function activeBtn(disabled, enabled) {
-  disabled.setAttribute('disabled', 'disabled');
-  enabled.removeAtribute('disabled');
 }
